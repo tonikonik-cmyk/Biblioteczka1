@@ -7,6 +7,7 @@ app = Flask(__name__)
 # --- SERWOWANIE PLIKÓW (np. tlo.png) Z FOLDERU GŁÓWNEGO ---
 @app.route('/tlo.png')
 def serve_image():
+    # Upewnij się, że plik tlo.png jest w tym samym folderze co skrypt
     return send_from_directory('.', 'tlo.png')
 
 
@@ -233,14 +234,7 @@ PAGE_CONTENT = """
             box-shadow: 0 0 15px rgba(197, 160, 89, 0.4);
         }
 
-        .info-footer {
-            margin-top: auto;
-            font-size: 11px;
-            color: rgba(255,255,255,0.3);
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 15px;
-            line-height: 1.6;
-        }
+        /* Usunięto klasę .info-footer, ponieważ sekcja została usunięta z HTML */
 
         .page-right {
             flex: 1;
@@ -260,19 +254,16 @@ PAGE_CONTENT = """
             transition: background 0.3s, color 0.3s;
         }
 
-        /* --- POPRAWKI DLA PERGAMINU (WIDOCZNOŚĆ) --- */
+        /* --- STYLE PAPIERU --- */
         .paper-vintage {
             background-color: #d1b48c;
             background-image: url('/tlo.png');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
-
-            /* ZMIANY DLA LEPSZEJ CZYTELNOŚCI: */
-            color: #1a0f05; /* Bardzo ciemny brąz (prawie czarny) */
-            font-weight: bold; /* Pogrubienie tekstu */
-            text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.4); /* Jasny cień pod literami (efekt 3D) */
-
+            color: #1a0f05;
+            font-weight: bold;
+            text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.4);
             box-shadow: inset 0 0 50px rgba(0,0,0,0.3);
         }
 
@@ -374,19 +365,15 @@ PAGE_CONTENT = """
                 <div style="margin-top: 20px;">
                     <h4>Wygląd Stron</h4>
                     <div class="style-options">
-                        <div class="style-btn" id="btn-vintage" onclick="setPaper('vintage')">📜 Stary Pergamin (Moje Tło)</div>
-                        <div class="style-btn" id="btn-lined-light" onclick="setPaper('lined-light')">📝 Linie (Jasne)</div>
-                        <div class="style-btn" id="btn-grid-light" onclick="setPaper('grid-light')">▦ Kratka (Jasna)</div>
-                        <div class="style-btn" id="btn-lined-dark" onclick="setPaper('lined-dark')">🌑 Linie (Tryb Nocny)</div>
-                        <div class="style-btn" id="btn-grid-dark" onclick="setPaper('grid-dark')">⬛ Kratka (Tryb Nocny)</div>
+                        <div class="style-btn" id="btn-vintage" onclick="setPaper('vintage')">📜 Stary Pergamin</div>
+                        <div class="style-btn" id="btn-lined-light" onclick="setPaper('lined-light')">📝 Linie Jasne</div>
+                        <div class="style-btn" id="btn-grid-light" onclick="setPaper('grid-light')">▦ Kratka Jasna</div>
+                        <div class="style-btn" id="btn-lined-dark" onclick="setPaper('lined-dark')">🌑 Linie Ciemne</div>
+                        <div class="style-btn" id="btn-grid-dark" onclick="setPaper('grid-dark')">⬛ Kratka Ciemna</div>
                     </div>
                 </div>
 
-                <div class="info-footer">
-                    ID: <span id="current-book-id">...</span><br>
-                    Wszystkie zmiany są zapisywane automatycznie w czasie rzeczywistym.
                 </div>
-            </div>
 
             <div class="page-right">
                 <textarea id="editor-area" placeholder="Zacznij pisać tutaj..."></textarea>
@@ -446,7 +433,7 @@ PAGE_CONTENT = """
             if (!libraryData[id]) libraryData[id] = { title: "", style: "vintage", pages: {} };
             const data = libraryData[id];
 
-            document.getElementById('current-book-id').innerText = id;
+            // Usunięto odniesienie do elementu 'current-book-id', bo został skasowany z HTML
             document.getElementById('book-title').value = data.title;
 
             setPaper(data.style, false);
